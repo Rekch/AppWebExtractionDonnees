@@ -198,19 +198,4 @@ Il suffit de suivre le lien
 * [ProjetHeroku](https://tpweb2x067.herokuapp.com)
 
 
-## Installation
-
-Vous aurez besoin des dependances suivantes :
-
-
-```sh
-$ pip3 install flask
-$ pip3 install flask-excel
-$ pip3 install flask-restful
-$ pip3 install jsonschema
-$ pip3 install apscheduler
-$ pip3 install sqlite3
-$ pip3 install requests
-```
-
 
