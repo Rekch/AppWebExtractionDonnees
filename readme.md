@@ -25,4 +25,4 @@ Vous pourrez par la suite aller sur le lien
 * http://localhost:5000/
 (par defaut)
 
-Le fichier correction.md detail les differentes fonctionnalites qu'offre l'application.
+Le fichier 'correction.md' detaille les differentes fonctionnalites qu'offre l'application.
