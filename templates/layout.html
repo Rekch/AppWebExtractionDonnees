@@ -36,7 +36,7 @@
 	      	</form>
 	       	<script>
 		      	function searchFunction(){
-		      		var action_src = "http://localhost:5000/search/"+document.getElementById("searchBox").value;
+		      		var action_src = "/search/"+document.getElementById("searchBox").value;
 		      		var my_form = document.getElementById("searchForm");
 		      		my_form.action = action_src;
 		      	}

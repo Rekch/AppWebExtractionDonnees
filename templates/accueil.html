@@ -8,7 +8,7 @@
 			</form>
 			 <script>
 				function bigsearchFunction(){
-					var action_src = "http://localhost:5000/search/"+document.getElementById("bigsearchBox").value;
+					var action_src = "/search/"+document.getElementById("bigsearchBox").value;
 					var my_form = document.getElementById("bigsearchForm");
 					my_form.action = action_src;
 				}
