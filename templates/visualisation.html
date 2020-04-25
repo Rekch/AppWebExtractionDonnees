@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+	{% for data in datas %}
+		<article class="media content-section">
+		  <div class="media-body">
+		    <div class="article-metadata">
+		      <a class="mr-2" href="#">{{ data[0] }}</a>
+			  <small class="text-muted">{{ data[1] }}</small>
+			  <p class="article-title" >{{ data[2] }}</p>
+			</div>
+			<small class="text-muted">{{ data[3] }}</small>
+			  <small class="text-muted">{{ data[4] }}</small>
+			  <p class="article-content">{{ data[5] }}</p>
+			  <small class="text-muted">{{ data[6] }}</small>
+			  <small class="text-muted">{{ data[7] }}</small>
+			  <p class="article-content">{{ data[8] }}</p>
+			  
+		  </div>
+		</article>
+	{% endfor %}
+{% endblock content %}

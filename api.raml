@@ -1,0 +1,43 @@
+#%RAML 1.0
+---
+title: projet de session
+baseUri: http://localhost:5000/
+version: 1
+
+/api:
+ /contrevenants:
+    get:
+        description: Liste les contrevenants de la base de donnée entre deux dates
+        responses:
+        200:
+            description: La liste des contrevenants a été correctement envoyée
+            body:
+                application/json:
+                    type: etablissement
+ /infractions:
+    get:
+        description: Liste les contrevenants de la base de donnée ainsi que le nombre d'infractions
+        responses:
+        200:
+            description: La liste des contrevenants a été correctement envoyée
+            body:
+                application/json:
+                    type: etablissement
+ /infractionsCSV:
+    get:
+        description: Liste les contrevenants de la base de donnée ainsi que le nombre d'infractions au format CSV
+        responses:
+        200:
+            description: La liste des contrevenants a été correctement envoyée
+            body:
+                application/json:
+                    type: etablissement                   
+ /infractionsXML:
+    get:
+        description: Liste les contrevenants de la base de donnée ainsi que le nombre d'infractions au format XML
+        responses:
+        200:
+            description: La liste des contrevenants a été correctement envoyée
+            body:
+                application/json:
+                    type: etablissement
