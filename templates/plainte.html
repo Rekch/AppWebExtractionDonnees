@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+<article class="media content-section">
+    <div id="formulaire-plainte">
+      <form onsubmit="plainteFunction()" class="plainteFormulaire" id="plainteForm" method="post">
+        
+        <label for="etablissement">Etablissement:</label><br>
+        <input type="text" id="etablissement" name="etablissement"><br>
+
+        <label for="adresse">adresse:</label><br>
+        <input type="text" id="adresse" name="adresse"><br>
+
+        <label for="ville">Ville:</label><br>
+        <input type="text" id="ville" name="ville"><br>
+
+        <label for="date_visite">Date de la visite:</label><br>
+        <input type="date" id="date_visite" name="date_visite"><br>
+
+        <label for="nom_client">Votre nom:</label><br>
+        <input type="text" id="nom_client" name="nom_client"><br>
+
+        <label for="prenom_client">Votre prenom:</label><br>
+        <input type="text" id="prenom_client" name="prenom_client"><br> 
+
+        <label for="description">Description du probleme:</label><br>
+        <textarea  id="description" name="description"></textarea><br>
+        <input class="bouton" type="submit" value="Go" />       			
+      </form>
+    </div>
+</article>
+
+<script>
+    function plainteFunction(){
+        var action_src = "/plainte?etablissement="+document.getElementById("etablissement").value+
+                        "&adresse="+document.getElementById("adresse").value+
+                        "&ville="+document.getElementById("ville").value+
+                        "&date_visite="+document.getElementById("date_visite").value+
+                        "&nom_client="+document.getElementById("nom_client").value+
+                        "&prenom_client="+document.getElementById("prenom_client").value+
+                        "&description="+document.getElementById("description").value;
+        var my_form = document.getElementById("plainteForm");
+        my_form.action = action_src;
+    }
+ </script>
+
+{% endblock content %}

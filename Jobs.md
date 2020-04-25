@@ -7,5 +7,5 @@ C1 fait  10xp (55xp) RAML
 C2 fait 5xp (60xp) RAML
 C3 fait 5xp (65xp) RAML
 A6 fait 10xp (75xp)
-F1 en cours... 15xp (90xp)
-D1 en cours... 15xp (105xp)
+F1 Fait 15xp (90xp)
+D1 Fait 15xp (105xp)

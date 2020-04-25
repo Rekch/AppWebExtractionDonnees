@@ -41,3 +41,13 @@ version: 1
             body:
                 application/json:
                     type: etablissement
+            
+ /plainte:
+    post:
+        description: Renvoie un document json contenant les informations d'une demande d'inspection
+        responses:
+        200:
+            description: La demande d'inspection a ete correctement creee
+            body:
+                application/json:
+                    type: etablissement

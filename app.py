@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, flash, redirect, jsonify, request, Response
 from flask_restful import Resource, Api, request
 import flask_excel as excel
+from jsonschema import validate
 from xml.etree.ElementTree import Element, SubElement, Comment, tostring
 from apscheduler.schedulers.background import BackgroundScheduler
 import sqlite3
@@ -11,6 +12,20 @@ import datetime
 app = Flask(__name__)
 api = Api(app) 
 app.config['SECRET_KEY'] = 'a3a9fb269885a66d27c3875e9d3b99bd'
+
+# A sample schema, like what we'd get from json.load()
+schema = {
+    "type" : "object",
+    "properties" : {
+        "etablissement" : {"type" : "string"},
+        "adresse" : {"type" : "string"},
+        "ville" : {"type" : "string"},
+        "date_visite" : {"type" : "string"},
+        "nom_client" : {"type" : "string"},
+        "prenom_client" : {"type" : "string"},
+        "description" : {"type" : "string"},
+    },
+}
 
 
 def dbrefresher():
@@ -65,6 +80,11 @@ def search(recherche):
             datas.append(data)
             datasDup.append(data)
     return render_template('visualisation.html', datas=datas)
+
+#D1 : Le système offre un service REST permettant de faire une demande d’inspection à la ville.
+@app.route("/inspection")
+def inspection():
+    return render_template('plainte.html')
 
 
 #A4 : Le système offre un service REST permettant d'obtenir la liste des contrevenants 
@@ -126,7 +146,9 @@ class infractionsCSV(Resource):
                 break
             data = (row[0], row[1])
             datas.append(data)
-        return excel.make_response_from_array([dump for dump in datas],"csv") 
+        r = Response(response=excel.make_response_from_array(datas, "csv"), status=200, mimetype="application/csv")
+        r.headers["Content-Type"] = "text/csv; charset=utf-8"
+        return r 
 
 #C2 Le système offre un service REST permettant d'obtenir la liste des établissements ayant commis une ou plusieurs infractions en XML. 
 class infractionsXML(Resource): 
@@ -181,20 +203,37 @@ class restaurant(Resource):
                 datasDup.append(data)
         return jsonify([dump for dump in datas]) 
 
+class plainte(Resource): 
+  
+    # corresponds to the post request. 
+    # this function is called whenever there 
+    # is a post request for this resource 
+    def post(self): 
+        args = request.args
+        etablissement = args['etablissement']
+        adresse = args['adresse']
+        ville = args['ville']
+        dateVisite = args['date_visite']
+        nomClient = args['nom_client']
+        prenomClient = args['prenom_client']
+        description = args['description']
+        data = {"etablissement" : etablissement, "adresse" : adresse, "ville" : ville, "date_visite" : dateVisite, "nom_client" : nomClient, "prenom_client" : prenomClient, "description" : description}
+        jsonPlainte = jsonify(data)
+        (validate(data, schema=schema))
+        return jsonPlainte
+        #if (validate(data, schema=schema)):
+            #return jsonPlainte
+        #else:
+        #   return 'bad request!', 400
+            
+
 # adding the defined resources along with their corresponding urls 
 api.add_resource(contravention, '/contrevenants') 
-
-# adding the defined resources along with their corresponding urls 
 api.add_resource(infractions, '/infractions') 
-
-# adding the defined resources along with their corresponding urls 
 api.add_resource(infractionsCSV, '/infractionsCSV') 
-
-# adding the defined resources along with their corresponding urls 
 api.add_resource(infractionsXML, '/infractionsXML') 
-
-# adding the defined resources along with their corresponding urls 
 api.add_resource(restaurant, '/restaurant') 
+api.add_resource(plainte, '/plainte') 
 
 if __name__ == '__main__':
     excel.init_excel(app)
